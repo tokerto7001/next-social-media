@@ -1,5 +1,5 @@
 
-export default async function ShowPost() {
+export default async function PostShowPage() {
 
     return (
       <div>

@@ -1,5 +1,5 @@
 
-export default async function CreateTopic() {
+export default async function TopicCreatePage() {
 
     return (
       <div>
