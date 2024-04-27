@@ -1,9 +1,25 @@
+import CommentCreateForm from "@/components/comments/comment-create-form";
+import PostShow from "@/components/posts/post-show";
+import paths from "@/paths";
+import Link from "next/link";
 
-export default async function PostShowPage() {
+interface PostShowPageProps {
+  params: {
+    slug: string;
+    postId: string;
+  }
+}
+
+export default async function PostShowPage({params}: PostShowPageProps) {
+  const { slug, postId } = params
 
     return (
-      <div>
-          Show Post
+      <div className="space-y-3">
+          <Link className="underline decoration-solid" href={paths.showTopic(slug)}>{'< '}Back to {slug}</Link>
+          <PostShow 
+          postId={postId}
+          />
+          <CommentCreateForm postId={postId} startOpen />
       </div>
     );
   }
