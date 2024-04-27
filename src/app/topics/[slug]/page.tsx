@@ -16,7 +16,9 @@ export default async function TopicShowPage({params}: ShopTopicProps) {
         </h1>
       </div>
       <div>
-        <PostCreateForm />
+        <PostCreateForm 
+        slug={slug}
+        />
       </div>
     </div>
   );
