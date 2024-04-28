@@ -1,7 +1,6 @@
-import type { Post } from '@prisma/client';
 import { db } from '..';
 
-export type PostWithData = Awaited<ReturnType<typeof fetchPostsByTopicSlug | typeof fetchTopPosts>>[number];
+export type PostWithData = Awaited<ReturnType<typeof fetchPostsByTopicSlug | typeof fetchTopPosts | typeof fetchPostsBySearchTerm>>[number];
 
 export function fetchPostsByTopicSlug(slug: string) {
     return db.post.findMany({
@@ -27,5 +26,29 @@ export async function fetchTopPosts(){
             _count: { select: { comments: true } }
         },
         take: 5
+    })
+}
+
+export async function fetchPostsBySearchTerm(term: string) {
+    return db.post.findMany({
+        where: {
+            OR: [
+                {
+                    title: {
+                    contains: term
+                    }
+                },
+                {
+                    content: {
+                        contains: term
+                    }
+                }
+            ]
+        },
+        include: {
+            topic: { select: {slug: true} },
+            user: { select: { name: true, image: true } },
+            _count: { select: { comments: true } }
+        },
     })
 }
